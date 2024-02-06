@@ -466,6 +466,27 @@ function styleTagTransform(css, styleElement) {
 }
 module.exports = styleTagTransform;
 
+/***/ }),
+
+/***/ "./src/Quotes.js":
+/*!***********************!*\
+  !*** ./src/Quotes.js ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getAuthors: () => (/* binding */ getAuthors)
+/* harmony export */ });
+async function getAuthors() {
+    const response = await fetch(
+        'https://api.quotable.io/authors?limit=50&sortBy=quoteCount'
+    );
+    const result = await response.json();
+    return result;
+}
+
+
 /***/ })
 
 /******/ 	});
@@ -549,10 +570,20 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/style.css */ "./src/styles/style.css");
+/* harmony import */ var _Quotes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Quotes */ "./src/Quotes.js");
 
+
+
+(0,_Quotes__WEBPACK_IMPORTED_MODULE_1__.getAuthors)()
+    .then((result) => {
+        console.log(result);
+    })
+    .catch((err) => {
+        console.log(err.message);
+    });
 
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=main.8d2378bdaeb2c36224d7.js.map
+//# sourceMappingURL=main.cc6d055dfd181c229d7a.js.map
