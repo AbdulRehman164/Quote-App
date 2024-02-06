@@ -476,11 +476,20 @@ module.exports = styleTagTransform;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getAuthors: () => (/* binding */ getAuthors)
+/* harmony export */   getAuthors: () => (/* binding */ getAuthors),
+/* harmony export */   getTags: () => (/* binding */ getTags)
 /* harmony export */ });
 async function getAuthors() {
     const response = await fetch(
         'https://api.quotable.io/authors?limit=50&sortBy=quoteCount'
+    );
+    const result = await response.json();
+    return result;
+}
+
+async function getTags() {
+    const response = await fetch(
+        'https://api.quotable.io/tags?sortBy=quoteCount'
     );
     const result = await response.json();
     return result;
@@ -582,8 +591,16 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err.message);
     });
 
+(0,_Quotes__WEBPACK_IMPORTED_MODULE_1__.getTags)()
+    .then((result) => {
+        console.log(result);
+    })
+    .catch((err) => {
+        console.log(err.message);
+    });
+
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=main.cc6d055dfd181c229d7a.js.map
+//# sourceMappingURL=main.95e273c16cc8ca3a97f5.js.map
