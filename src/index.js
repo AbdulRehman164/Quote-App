@@ -1,5 +1,5 @@
 import './styles/style.css';
-import { getAuthors, getTags } from './Quotes';
+import { getAuthors, getTags, getHomeQuotes } from './Quotes';
 
 getAuthors()
     .then((result) => {
@@ -16,3 +16,11 @@ getTags()
     .catch((err) => {
         console.log(err.message);
     });
+
+getHomeQuotes(
+    1,
+    ['albert-einstein', 'thomas-edison'],
+    ['happiness', 'history']
+).then((result) => {
+    console.log(result);
+});

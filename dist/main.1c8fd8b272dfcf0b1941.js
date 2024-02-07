@@ -477,6 +477,7 @@ module.exports = styleTagTransform;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getAuthors: () => (/* binding */ getAuthors),
+/* harmony export */   getHomeQuotes: () => (/* binding */ getHomeQuotes),
 /* harmony export */   getTags: () => (/* binding */ getTags)
 /* harmony export */ });
 async function getAuthors() {
@@ -493,6 +494,26 @@ async function getTags() {
     );
     const result = await response.json();
     return result;
+}
+
+async function getHomeQuotes(pageNumber, authors, tags) {
+    let authorURL = `https://api.quotable.io/quotes?page=${pageNumber}&author=`;
+    authors.forEach((author) => {
+        authorURL += `${author}|`;
+    });
+
+    let tagsURL = `https://api.quotable.io/quotes?page=${pageNumber}&tags=`;
+    tags.forEach((tag) => {
+        tagsURL += `${tag}|`;
+    });
+
+    const authorResponse = await fetch(authorURL);
+    const tagsResponse = await fetch(tagsURL);
+
+    const authorResult = await authorResponse.json();
+    const tagsResult = await tagsResponse.json();
+
+    return [...authorResult.results, ...tagsResult.results];
 }
 
 
@@ -599,8 +620,16 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err.message);
     });
 
+(0,_Quotes__WEBPACK_IMPORTED_MODULE_1__.getHomeQuotes)(
+    1,
+    ['albert-einstein', 'thomas-edison'],
+    ['happiness', 'history']
+).then((result) => {
+    console.log(result);
+});
+
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=main.95e273c16cc8ca3a97f5.js.map
+//# sourceMappingURL=main.1c8fd8b272dfcf0b1941.js.map
