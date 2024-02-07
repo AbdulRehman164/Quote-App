@@ -33,3 +33,16 @@ export async function getHomeQuotes(pageNumber, authors, tags) {
 
     return [...authorResult.results, ...tagsResult.results];
 }
+
+export async function searchQutoes(searchBy, searchText) {
+    let url;
+    if (searchBy === 'tag')
+        url = `https://api.quotable.io/search/quotes?query=${searchText}`;
+    else
+        url = `https://api.quotable.io/quotes?page=1&author=${searchText}&limit=50`;
+
+    const response = await fetch(url);
+    const result = await response.json();
+
+    return result;
+}

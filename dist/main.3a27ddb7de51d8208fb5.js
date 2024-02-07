@@ -478,7 +478,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   getAuthors: () => (/* binding */ getAuthors),
 /* harmony export */   getHomeQuotes: () => (/* binding */ getHomeQuotes),
-/* harmony export */   getTags: () => (/* binding */ getTags)
+/* harmony export */   getTags: () => (/* binding */ getTags),
+/* harmony export */   searchQutoes: () => (/* binding */ searchQutoes)
 /* harmony export */ });
 async function getAuthors() {
     const response = await fetch(
@@ -514,6 +515,19 @@ async function getHomeQuotes(pageNumber, authors, tags) {
     const tagsResult = await tagsResponse.json();
 
     return [...authorResult.results, ...tagsResult.results];
+}
+
+async function searchQutoes(searchBy, searchText) {
+    let url;
+    if (searchBy === 'tag')
+        url = `https://api.quotable.io/search/quotes?query=${searchText}`;
+    else
+        url = `https://api.quotable.io/quotes?page=1&author=${searchText}&limit=50`;
+
+    const response = await fetch(url);
+    const result = await response.json();
+
+    return result;
 }
 
 
@@ -628,8 +642,12 @@ __webpack_require__.r(__webpack_exports__);
     console.log(result);
 });
 
+(0,_Quotes__WEBPACK_IMPORTED_MODULE_1__.searchQutoes)('author', 'albert-einstein').then((result) => {
+    console.log(result);
+});
+
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=main.1c8fd8b272dfcf0b1941.js.map
+//# sourceMappingURL=main.3a27ddb7de51d8208fb5.js.map
